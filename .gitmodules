@@ -1,0 +1,6 @@
+[submodule "libs/cmd_line"]
+	path = libs/cmd_line
+	url = git://github.com/KeshetResearch/cmd_line
+[submodule "libs/infra"]
+	path = libs/infra
+	url = git://github.com/KeshetResearch/infra
