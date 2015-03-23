@@ -11,7 +11,7 @@
 #include <map>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <cmdline/cmd_line.h>
+#include <cmd_line.h>
 #include "Classifier.h"
 #include "Dataset.h"
 #include "KernelExpansion.h"
