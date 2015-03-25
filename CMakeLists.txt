@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 2.8)
 
 project(phoneme_classifier_project)
 
+
 SET(START_DIR .)
+
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${START_DIR}/builds/win32 )
+set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${START_DIR}/builds/win32/lib )
+set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${START_DIR}/builds/win32/lib )
 
 # Importing Infra
 SET(INFRA_DIR ${START_DIR}/libs/infra/src)

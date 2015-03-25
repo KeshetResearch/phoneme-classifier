@@ -10,7 +10,6 @@
 #include <fstream>
 #include <map>
 #include <sys/time.h>
-#include <sys/resource.h>
 #include <cmd_line.h>
 #include "Classifier.h"
 #include "Dataset.h"
@@ -156,8 +155,8 @@ int main(int argc, char **argv)
   }
     
   // initiate timer - used to calculate CPU cycles
-  struct rusage before, after;
-  getrusage(RUSAGE_SELF, &before);
+  // struct rusage before, after;
+  // getrusage(RUSAGE_SELF, &before);
   
   uint cumulative_error = 0;
   uint cumulative_num_frames = 0;
@@ -222,14 +221,14 @@ int main(int argc, char **argv)
   }
   
   // stop the timer
-  getrusage(RUSAGE_SELF, &after);
+  /*getrusage(RUSAGE_SELF, &after);
   long msecs_user = ((after.ru_utime.tv_sec - before.ru_utime.tv_sec) * 1000 +
                      (after.ru_utime.tv_usec - before.ru_utime.tv_usec) / 1000);
   long msecs_system = ((after.ru_stime.tv_sec - before.ru_stime.tv_sec) * 1000 +
                        (after.ru_stime.tv_usec -  before.ru_stime.tv_usec) / 1000);
   std::cout << "CPU: utilization " << (msecs_system + msecs_user) 
   << " msec (user: " << msecs_user << " msec, system: " << msecs_system << " msec)."
-  << std::endl;
+  << std::endl;*/
   
   // save classifier 
   cout <<  "Info: saving classifier " << classifier_filename << "..." << flush;
@@ -238,7 +237,7 @@ int main(int argc, char **argv)
   
   std::cout << "Final:" << " cum_error= " << cumulative_error/double(cumulative_num_frames)
   << " loss= " << cumulative_loss/double(cumulative_num_frames) 
-  << " cpu_user= " << msecs_user  << endl;
+  /*<< " cpu_user= " << msecs_user*/  << endl;
   
   for (int i=0; i < training_dataset.size(); i++) {
     delete [] frame_numbers[i];
