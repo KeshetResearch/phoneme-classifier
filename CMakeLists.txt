@@ -9,19 +9,28 @@ set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${START_DIR}/builds/win32 )
 set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${START_DIR}/builds/win32/lib )
 set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${START_DIR}/builds/win32/lib )
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -llapack -lblas" )
+
+# find BLAS and LAPACK
+find_package ( BLAS )
+find_package ( LAPACK )
+
 # Importing Infra
 SET(INFRA_DIR ${START_DIR}/libs/infra/src)
 add_library(infra STATIC ${INFRA_DIR}/infra_vv_funcs.cpp ${INFRA_DIR}/infra_vm_funcs.cpp ${INFRA_DIR}/infra_mm_funcs.cpp ${INFRA_DIR}/infra_exception.cpp ${INFRA_DIR}/infra_binary.cpp)
 target_include_directories (infra PUBLIC ${INFRA_DIR})
+	IF(LAPACK_FOUND AND BLAS_FOUND)
+		MESSAGE ( "-- infra: Linking BLAS and LAPACK")
+		target_link_libraries(infra LINK_PUBLIC BLAS)
+		target_link_libraries(infra LINK_PUBLIC LAPACK)
+	ENDIF(LAPACK_FOUND AND BLAS_FOUND)
+
 
 # Importing cmd_line
 SET(CMD_LINE_DIR ${START_DIR}/libs/cmd_line/src)
 add_library(cmd_line STATIC ${CMD_LINE_DIR}/cmd_line.cpp)
 target_include_directories (cmd_line PUBLIC ${CMD_LINE_DIR})
 
-# Importing active_set
-# SET(ACTIVE_SET_DIR ${START_DIR}/src)
-# add_library(active_set STATIC ${ACTIVE_SET_DIR}/active_set.h)
 
 # Importing phoneme_classifier
 SET(PHONEME_CLASSIFIER_DIR ${START_DIR}/src)
